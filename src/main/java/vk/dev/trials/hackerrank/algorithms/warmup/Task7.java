@@ -1,4 +1,4 @@
-package vk.dev.trials.hackerrank.algorithms;
+package vk.dev.trials.hackerrank.algorithms.warmup;
 
 import java.util.Scanner;
 
