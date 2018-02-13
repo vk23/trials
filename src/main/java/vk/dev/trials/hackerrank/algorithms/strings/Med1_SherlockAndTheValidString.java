@@ -11,49 +11,50 @@ import java.util.*;
 public class Med1_SherlockAndTheValidString {
 
     static String isValid(String s) {
-        Map<Character, Integer> counts = new HashMap<>();
+        Map<Character, Integer> charCounts = new HashMap<>();
         for (Character c : s.toCharArray()) {
-            counts.compute(c, (k, v) -> v == null ? 1 : v + 1);
+            charCounts.compute(c, (k, v) -> v == null ? 1 : v + 1);
         }
-        System.out.println(counts);
+        System.out.println(charCounts);
 
-        boolean foundOne = false;
+        Map<Integer, Integer> countsOfCounts = new HashMap<>();
+        for (Integer i:charCounts.values()) {
+            countsOfCounts.compute(i, (k, v) -> v == null ? 1 : v + 1);
+        }
+        System.out.println(countsOfCounts);
 
-        Integer[] values = counts.values().toArray(new Integer[0]);
-        int freq = values[0];
-        int deviant = values[0];
-        for (int i = 1; i < values.length; i++) {
-            if (freq == values[i]) {
-                continue;
-            }
-            if (foundOne) {
-                return "NO";
-            }
+        Integer[] countKeys = countsOfCounts.keySet().toArray(new Integer[0]);
 
-            foundOne = true;
-            if (i + 1 < values.length) {
-                if (values[i + 1] == freq) {
-                    freq = freq;
-                    deviant = values[i];
-                } else {
-                    freq = values[i];
-                    deviant = values[i - 1];
-                }
-            } else {
-
-            }
+        // all chars equally distributed
+        if (countKeys.length == 1) {
+            return "YES";
         }
 
-        if (foundOne) {
-            System.out.println(deviant);
-            if (deviant == 1 || deviant == freq + 1) {
-                return "YES";
-            } else {
-                return "NO";
-            }
-
+        // only one deviation is possible
+        if (countKeys.length > 2) {
+            return "NO";
         }
-        return "YES";
+
+        Integer c0 = countsOfCounts.get(countKeys[0]);
+        Integer c1 = countsOfCounts.get(countKeys[1]);
+
+        // only one deviation is possible
+        if (c0 != 1 && c1 != 1) {
+            return "NO";
+        }
+
+        int deviate = 0, normal = 0;
+        if (c0 == 1) {
+            deviate = countKeys[0];
+            normal = countKeys[1];
+        } else {
+            deviate = countKeys[1];
+            normal = countKeys[0];
+        }
+        // deviate must be either 1 or normal+1
+        return deviate == 1 || normal == deviate - 1
+                ? "YES"
+                : "NO";
     }
 
     public static void main(String[] args) {
