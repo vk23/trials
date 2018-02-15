@@ -3,10 +3,10 @@ package vk.dev.trials.hackerrank.algorithms.implementation;
 import java.util.Scanner;
 
 /**
- * Easy1_Kangaroo https://www.hackerrank.com/challenges/kangaroo.
+ * Easy3_SockMerchant.
  *
  * @author vk
- * @since 06.02.2018
+ * @since 14.02.2018
  */
 public class Easy3_SockMerchant {
 
