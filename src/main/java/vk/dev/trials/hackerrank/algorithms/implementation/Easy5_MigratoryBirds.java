@@ -3,12 +3,12 @@ package vk.dev.trials.hackerrank.algorithms.implementation;
 import java.util.*;
 
 /**
- * Easy4_MigratoryBirds.
+ * Easy5_MigratoryBirds.
  *
  * @author vk
  * @since 15.02.2018
  */
-public class Easy4_MigratoryBirds {
+public class Easy5_MigratoryBirds {
 
     static int migratoryBirds(int n, int[] ar) {
         Map<Integer, Integer> map = new HashMap<>();
