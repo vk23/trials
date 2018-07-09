@@ -10,12 +10,12 @@ import lombok.experimental.Accessors;
  *
  * @author Vladimir_Kuragin
  */
-public class LinkedList<T extends Comparable> {
+public class LinkedList<T> {
 
     @Data
     @ToString(exclude = "next")
     @Accessors(chain = true)
-    public static final class Node<T extends Comparable> {
+    public static final class Node<T> {
         private Node<T> next;
         private T value;
     }
