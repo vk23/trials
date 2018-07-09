@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
  *
  * @author Vladimir_Kuragin
  */
-public class LinkedList<T> {
+public class LinkedList<T extends Comparable> {
 
     @Data
     @ToString(exclude = "next")
