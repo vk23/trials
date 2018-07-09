@@ -1,8 +1,3 @@
-/*
- * VTB Group. Do not reproduce without permission in writing.
- * Copyright (c) 2017 VTB Group. All rights reserved.
- */
-
 package vk.dev.trials.ds;
 
 import static org.hamcrest.CoreMatchers.is;
