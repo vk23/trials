@@ -26,6 +26,17 @@ public class LinkedList<T extends Comparable> {
     @Getter
     private int size;
 
+    public T get(int index) {
+        if (index < 0 || index >= size) {
+            throw new ArrayIndexOutOfBoundsException(index);
+        }
+        Node<T> node = head;
+        for (int i = 0; i < index; i++) {
+            node = node.getNext();
+        }
+        return node.getValue();
+    }
+
     public void add(T value) {
         if (head == null) {
             head = new Node<T>().setValue(value);

@@ -21,7 +21,7 @@ import org.junit.Test;
  */
 public class LinkedListTest {
 
-    LinkedList<Integer> linkedList;
+    private LinkedList<Integer> linkedList;
 
     @Before
     public void setUp() {
@@ -30,6 +30,18 @@ public class LinkedListTest {
         linkedList.add(null);
         linkedList.add(2);
         linkedList.add(3);
+    }
+
+    @Test
+    public void get() {
+        Integer result = linkedList.get(3);
+
+        assertThat(result, is(3));
+    }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void shouldThrowArrayIndexOutOfBounds() {
+        linkedList.get(Integer.MAX_VALUE);
     }
 
     @Test
