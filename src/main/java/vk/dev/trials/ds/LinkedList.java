@@ -15,7 +15,7 @@ public class LinkedList<T extends Comparable> {
     @Data
     @ToString(exclude = "next")
     @Accessors(chain = true)
-    public static final class Node<T> {
+    public static final class Node<T extends Comparable> {
         private Node<T> next;
         private T value;
     }
