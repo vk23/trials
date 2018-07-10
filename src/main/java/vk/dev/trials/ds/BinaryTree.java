@@ -6,6 +6,12 @@ import lombok.NonNull;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 /**
  * BinaryTree.
  *
@@ -20,10 +26,22 @@ public class BinaryTree<T extends Comparable<? super T>> {
         private Node<T> left;
         private Node<T> right;
         private T value;
+
+        public boolean hasLeft() {
+            return left != null;
+        }
+
+        public boolean hasRight() {
+            return right != null;
+        }
     }
 
     @Getter
     private Node<T> root;
+
+    public boolean contains(@NonNull T value) {
+        return find(root, value) != null;
+    }
 
     public void add(@NonNull T value) {
         root = addRecursively(root, value);
@@ -42,9 +60,8 @@ public class BinaryTree<T extends Comparable<? super T>> {
         return node;
     }
 
-    public boolean remove(@NonNull T value) {
+    public void remove(@NonNull T value) {
         root = removeRecursively(root, value);
-        return true; // TODO?
     }
 
     private Node<T> removeRecursively(Node<T> node, T value) {
@@ -52,28 +69,51 @@ public class BinaryTree<T extends Comparable<? super T>> {
             return null;
         }
         int comparison = value.compareTo(node.getValue());
-
         if (comparison > 0) {
             node.setRight(removeRecursively(node.getRight(), value));
         } else if (comparison < 0) {
             node.setLeft(removeRecursively(node.getLeft(), value));
         } else {
-            if (node.getLeft() == null && node.getRight() == null) {
-                return null;
-            } else if (node.getLeft() == null) {
-                return node.getRight();
-            } else if (node.getRight() == null) {
-                return node.getLeft();
-            } else {
-                //TODO: remove and rearrange?
-            }
+            return removeNode(node);
         }
 
         return node;
     }
 
-    public boolean contains(@NonNull T value) {
-        return find(root, value) != null;
+    private Node<T> removeNode(Node<T> node) {
+        // node has no children
+        if (!node.hasLeft() && !node.hasRight()) {
+            return null;
+        }
+        // node has only right child
+        if (!node.hasLeft()) {
+            return node.getRight();
+        }
+        // node has only left child
+        if (!node.hasRight()) {
+            return node.getLeft();
+        }
+        // node has both children:
+        // find min value in right subtree,
+        // set current node's value to min value
+        // and delete duplicate node.
+        T minVal = findMinVal(node.getRight());
+        node.setValue(minVal);
+        node.setRight(removeRecursively(node.getRight(), minVal));
+        return node;
+    }
+
+    /**
+     * Since it's a BST minVal will be always in the leftmost node.
+     *
+     * @param node subtree root
+     * @return min value
+     */
+    private T findMinVal(Node<T> node) {
+        return node.hasLeft()
+                ? findMinVal(node.getLeft())
+                : node.getValue()
+                ;
     }
 
     private Node<T> find(Node<T> node, T value) {
@@ -88,4 +128,37 @@ public class BinaryTree<T extends Comparable<? super T>> {
         }
         return node;
     }
+
+    public List<Node<T>> traverseDepthFirst(Node<T> node) {
+        List<Node<T>> nodeList = new ArrayList<>();
+        traverseDepthFirstRecursively(node, nodeList);
+        return nodeList;
+    }
+
+    private void traverseDepthFirstRecursively(Node<T> node, List<Node<T>> nodeList) {
+        if (node == null) {
+            return;
+        }
+        traverseDepthFirstRecursively(node.getLeft(), nodeList);
+        nodeList.add(node);
+        traverseDepthFirstRecursively(node.getRight(), nodeList);
+    }
+
+    public List<Node<T>> traverseBreadthFirst(Node<T> node) {
+        List<Node<T>> nodeList = new ArrayList<>();
+
+        Queue<Node<T>> q = new LinkedList<>(Collections.singleton(node));
+        while (!q.isEmpty()) {
+            Node<T> current = q.remove();
+            nodeList.add(current);
+            if (current.hasLeft()) {
+                q.add(current.getLeft());
+            }
+            if (current.hasRight()) {
+                q.add(current.getRight());
+            }
+        }
+        return nodeList;
+    }
+
 }
