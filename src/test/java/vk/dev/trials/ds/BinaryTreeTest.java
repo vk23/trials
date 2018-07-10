@@ -10,7 +10,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -133,5 +132,21 @@ public class BinaryTreeTest {
                 .collect(Collectors.toList());
 
         assertThat(result, containsInRelativeOrder(expected));
+    }
+
+    @Test
+    public void rotateLeft() {
+        BinaryTree.Node<Integer> newRoot = binaryTree.rotateLeft();
+
+        assertThat(newRoot, is(binaryTree.getRoot()));
+        assertThat(newRoot.getValue(), is(7));
+    }
+
+    @Test
+    public void rotateRight() {
+        BinaryTree.Node<Integer> newRoot = binaryTree.rotateRight();
+
+        assertThat(newRoot, is(binaryTree.getRoot()));
+        assertThat(newRoot.getValue(), is(1));
     }
 }

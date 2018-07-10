@@ -161,4 +161,35 @@ public class BinaryTree<T extends Comparable<? super T>> {
         return nodeList;
     }
 
+    public Node<T> rotateLeft() {
+        Node<T> result = rotateLeft(root);
+        root = result;
+        return result;
+    }
+
+    public Node<T> rotateRight() {
+        Node<T> result = rotateRight(root);
+        root = result;
+        return result;
+    }
+
+    private Node<T> rotateLeft(Node<T> node) {
+        if (!node.hasRight()) {
+            return node;
+        }
+        Node<T> right = node.getRight();
+        node.setRight(right.getLeft());
+        right.setLeft(node);
+        return right;
+    }
+
+    private Node<T> rotateRight(Node<T> node) {
+        if (!node.hasLeft()) {
+            return node;
+        }
+        Node<T> left = node.getLeft();
+        node.setLeft(left.getRight());
+        left.setRight(node);
+        return left;
+    }
 }
