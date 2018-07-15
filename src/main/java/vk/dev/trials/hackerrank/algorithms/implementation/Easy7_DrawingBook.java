@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Easy7_DrawingBook.
  *
  * @author vk
- * @since 07.09.2018
+ * @since 09.07.2018
  */
 public class Easy7_DrawingBook {
 
