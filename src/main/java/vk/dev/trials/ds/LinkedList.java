@@ -10,14 +10,19 @@ import lombok.experimental.Accessors;
  *
  * @author Vladimir_Kuragin
  */
+@ToString
 public class LinkedList<T> {
 
     @Data
-    @ToString(exclude = "next")
     @Accessors(chain = true)
     public static final class Node<T> {
         private Node<T> next;
         private T value;
+
+        @Override
+        public String toString() {
+            return "[" + value + "]" + (next == null ? "" : next.toString());
+        }
     }
 
     @Getter
@@ -85,5 +90,36 @@ public class LinkedList<T> {
             node = node.getNext();
         }
         return false;
+    }
+
+    public void reverseRecursively() {
+        head = reverseRecursively(null, head);
+    }
+
+    private Node<T> reverseRecursively(Node<T> prev, Node<T> node) {
+        Node<T> next = node.getNext();
+        node.setNext(prev);
+        if (next == null) {
+            return node;
+        } else {
+            return reverseRecursively(node, next);
+        }
+    }
+
+    public void reverse() {
+        Node<T> node = head;
+        Node<T> prev = null;
+
+        while(true) {
+            Node<T> next = node.getNext();
+            node.setNext(prev);
+            prev = node;
+            if (next == null) {
+                head = node;
+                return;
+            } else {
+                node = next;
+            }
+        }
     }
 }

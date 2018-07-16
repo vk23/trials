@@ -1,6 +1,7 @@
 package vk.dev.trials.ds;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -84,5 +85,25 @@ public class LinkedListTest {
         linkedList.remove(3);
 
         assertThat(linkedList.getSize(), is(3));
+    }
+
+    @Test
+    public void reverseRecursively() {
+        LinkedList.Node<Integer> headBefore = linkedList.getHead();
+
+        linkedList.reverseRecursively();
+
+        assertThat(linkedList.getHead(), not(headBefore));
+        assertThat(linkedList.getHead().getValue(), is(3));
+    }
+
+    @Test
+    public void reverse() {
+        LinkedList.Node<Integer> headBefore = linkedList.getHead();
+
+        linkedList.reverse();
+
+        assertThat(linkedList.getHead(), not(headBefore));
+        assertThat(linkedList.getHead().getValue(), is(3));
     }
 }
