@@ -2,7 +2,7 @@ package vk.dev.trials.hackerrank.cracking_the_coding_interview;
 
 import java.util.Arrays;
 
-public class ArrayLeftRotation {
+public class T1_ArrayLeftRotation {
 
     private static int[] rotLeft(int[] arr, int offset) {
         int size = arr.length;
