@@ -14,19 +14,34 @@ public class Day0_MeanMedianMode {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int[] arr = new int[n];
-        for (int i =0; i<n; i++) {
+        for (int i = 0; i < n; i++) {
             arr[i] = sc.nextInt();
         }
         sc.close();
 
         Arrays.sort(arr);
-        long sum = arr[0];
-        int modeCount = 1;
+        long sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += arr[i];
+        }
+
+        // mean
+        double mean = (sum * 1.0) / n;
+        System.out.printf("%.1f%n", mean);
+
+        // median
+        System.out.printf("%.1f%n", Util.calcMediane(arr, 0, n));
+
+        // mode
+        System.out.println(calcMode(n, arr));
+    }
+
+    private static int calcMode(int n, int[] arr) {
         int modeVal = arr[0];
+        int modeCount = 1;
         int modeValCurr = arr[0];
         int modeCountCurr = 1;
-        for (int i=1; i<n; i++) {
-            sum+= arr[i];
+        for (int i = 1; i < n; i++) {
             if (modeValCurr != arr[i]) {
                 modeValCurr = arr[i];
                 modeCountCurr = 1;
@@ -38,20 +53,8 @@ public class Day0_MeanMedianMode {
                 modeVal = modeValCurr;
             }
         }
-
-        // mean
-        double mean = (sum*1.0)/n;
-        System.out.printf("%.1f%n", mean);
-
-        // median
-        int mid = n/2;
-        if (n % 2 == 0) {
-            System.out.printf("%.1f%n", (arr[mid-1] + arr[mid])/2.0);
-        } else {
-            System.out.println(arr[mid]);
-        }
-
-        // mode
-        System.out.println(modeVal);
+        return modeVal;
     }
+
+
 }
