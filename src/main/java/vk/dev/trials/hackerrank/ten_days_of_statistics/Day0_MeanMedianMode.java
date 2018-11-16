@@ -30,7 +30,7 @@ public class Day0_MeanMedianMode {
         System.out.printf("%.1f%n", mean);
 
         // median
-        System.out.printf("%.1f%n", Util.calcMedian(arr, 0, n));
+        System.out.printf("%.1f%n", Util.calcMedian(arr, 0, n - 1));
 
         // mode
         System.out.println(calcMode(n, arr));

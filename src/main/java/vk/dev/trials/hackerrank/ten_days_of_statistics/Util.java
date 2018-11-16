@@ -10,8 +10,8 @@ import java.util.Arrays;
 public class Util {
 
     public static double calcMedian(int[] arr, int left, int right) {
-        int mid = (right - left) / 2 + left;
-        return ((right - left) % 2 == 0)
+        int mid = (right + 1 - left) / 2 + left;
+        return ((right + 1 - left) % 2 == 0)
                 ? (arr[mid - 1] + arr[mid]) / 2.0
                 : arr[mid];
     }
