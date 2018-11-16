@@ -9,15 +9,15 @@ import java.util.Arrays;
  */
 public class Util {
 
-    public static double calcMediane(int[] arr, int from, int to) {
-        int mid = (from - to) / 2;
-        return ((from - to) % 2 == 0)
+    public static double calcMedian(int[] arr, int left, int right) {
+        int mid = (right - left) / 2 + left;
+        return ((right - left) % 2 == 0)
                 ? (arr[mid - 1] + arr[mid]) / 2.0
                 : arr[mid];
     }
 
-    public static double calcMedianeNotSorted(int[] arr, int from, int to) {
+    public static double calcMedianNotSorted(int[] arr, int from, int to) {
         Arrays.sort(arr);
-        return calcMediane(arr, from, to);
+        return calcMedian(arr, from, to);
     }
 }

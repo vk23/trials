@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Day0_MeanMedianMode {
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(input());
         int n = sc.nextInt();
         int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
@@ -30,10 +30,15 @@ public class Day0_MeanMedianMode {
         System.out.printf("%.1f%n", mean);
 
         // median
-        System.out.printf("%.1f%n", Util.calcMediane(arr, 0, n));
+        System.out.printf("%.1f%n", Util.calcMedian(arr, 0, n));
 
         // mode
         System.out.println(calcMode(n, arr));
+    }
+
+    private static String input() {
+        return "10\n" +
+                "64630 11735 14216 99233 14470 4978 73429 38120 51135 67060\n";
     }
 
     private static int calcMode(int n, int[] arr) {
