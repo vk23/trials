@@ -37,4 +37,11 @@ public class Util {
         }
         return res;
     }
+
+    public static long factorial(long x) {
+        if (x <= 1) {
+            return 1;
+        }
+        return x * factorial(x - 1);
+    }
 }

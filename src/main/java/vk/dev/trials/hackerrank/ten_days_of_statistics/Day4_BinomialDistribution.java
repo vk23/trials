@@ -2,6 +2,8 @@ package vk.dev.trials.hackerrank.ten_days_of_statistics;
 
 import java.util.Scanner;
 
+import static vk.dev.trials.hackerrank.ten_days_of_statistics.Util.factorial;
+
 /**
  * Day4_BinomialDistribution.
  *
@@ -46,10 +48,4 @@ public class Day4_BinomialDistribution {
         return combinations * Math.pow(p, i) * Math.pow(q, (n-i));
     }
 
-    private static long factorial(long x) {
-        if (x <= 1) {
-            return 1;
-        }
-        return x * factorial(x - 1);
-    }
 }
