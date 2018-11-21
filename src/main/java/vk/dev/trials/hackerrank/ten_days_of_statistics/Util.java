@@ -44,4 +44,24 @@ public class Util {
         }
         return x * factorial(x - 1);
     }
+
+    public static double erf(double z) {
+        return erf(z, 1000);
+    }
+
+    public static double erf(double z, int numOfIntegrationSteps) {
+        int sign = z < 0 ? -1 : 1;
+        z = Math.abs(z);
+        double dx = z / numOfIntegrationSteps;
+        double xi = 0;
+        double integral = 0;
+        while (xi < z) {
+            double pow = -(xi * xi);
+            integral += Math.exp(pow) * dx;
+            xi += dx;
+        }
+        double result = (2 / Math.sqrt(Math.PI)) * integral;
+//        System.out.printf("erf for z=%.3f, x=%.3f : --> %.3f%n", z, x, result);
+        return sign * result;
+    }
 }
