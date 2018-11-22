@@ -2,6 +2,9 @@ package vk.dev.trials.hackerrank.ten_days_of_statistics;
 
 import java.util.Scanner;
 
+import static vk.dev.trials.hackerrank.ten_days_of_statistics.Util.mean;
+import static vk.dev.trials.hackerrank.ten_days_of_statistics.Util.standardDeviation;
+
 /**
  * Day1_StandardDeviation.
  *
@@ -13,19 +16,13 @@ public class Day1_StandardDeviation {
         Scanner sc = new Scanner(input());
         int n = sc.nextInt();
         int[] arr = new int[n];
-        int sum = 0;
         for (int i = 0; i < n; i++) {
             arr[i] = sc.nextInt();
-            sum += arr[i];
         }
         sc.close();
 
-        double mean = (sum * 1.0) / n;
-        double sumOfSquaredDistances = 0;
-        for (int i = 0; i < n; i++) {
-            sumOfSquaredDistances += Math.pow(arr[i] - mean, 2.0);
-        }
-        double standardDeviation = Math.sqrt(sumOfSquaredDistances / n);
+        double mean = mean(arr);
+        double standardDeviation = standardDeviation(arr, mean);
         System.out.printf("%.1f%n", standardDeviation);
     }
 

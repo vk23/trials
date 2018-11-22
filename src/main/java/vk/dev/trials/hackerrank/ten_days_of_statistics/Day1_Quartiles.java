@@ -21,9 +21,9 @@ public class Day1_Quartiles {
         sc.close();
 
         Arrays.sort(arr);
-        int q2 = (int) Util.calcMedian(arr, 0, n-1);
-        int q1 = (int) Util.calcMedian(arr, 0, (n-1)/2 - add);
-        int q3 = (int) Util.calcMedian(arr, (n-1)/2 , n);
+        int q2 = (int) Util.median(arr, 0, n-1);
+        int q1 = (int) Util.median(arr, 0, (n-1)/2 - add);
+        int q3 = (int) Util.median(arr, (n-1)/2 , n);
         System.out.printf("%d%n%d%n%d%n", q1, q2, q3);
     }
 

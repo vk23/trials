@@ -3,6 +3,8 @@ package vk.dev.trials.hackerrank.ten_days_of_statistics;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import static vk.dev.trials.hackerrank.ten_days_of_statistics.Util.mean;
+
 /**
  * Day0_MeanMedianMode.
  *
@@ -20,17 +22,12 @@ public class Day0_MeanMedianMode {
         sc.close();
 
         Arrays.sort(arr);
-        long sum = 0;
-        for (int i = 0; i < n; i++) {
-            sum += arr[i];
-        }
 
         // mean
-        double mean = (sum * 1.0) / n;
-        System.out.printf("%.1f%n", mean);
+        System.out.printf("%.1f%n", mean(arr));
 
         // median
-        System.out.printf("%.1f%n", Util.calcMedian(arr, 0, n - 1));
+        System.out.printf("%.1f%n", Util.median(arr, 0, n - 1));
 
         // mode
         System.out.println(calcMode(n, arr));

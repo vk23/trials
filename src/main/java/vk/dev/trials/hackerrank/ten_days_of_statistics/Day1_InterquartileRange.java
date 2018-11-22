@@ -1,6 +1,6 @@
 package vk.dev.trials.hackerrank.ten_days_of_statistics;
 
-import static vk.dev.trials.hackerrank.ten_days_of_statistics.Util.calcMedian;
+import static vk.dev.trials.hackerrank.ten_days_of_statistics.Util.median;
 import static vk.dev.trials.hackerrank.ten_days_of_statistics.Util.convert;
 
 import java.util.ArrayList;
@@ -45,9 +45,9 @@ public class Day1_InterquartileRange {
         // calculate quartiles and range between q1 and q3
         int len = arr.length;
         Arrays.sort(arr);
-        int q2 = (int) calcMedian(arr, 0, len - 1);
-        int q1 = (int) calcMedian(arr, 0, (len - 1) / 2 - add);
-        int q3 = (int) calcMedian(arr, (len - 1) / 2, len);
+        int q2 = (int) median(arr, 0, len - 1);
+        int q1 = (int) median(arr, 0, (len - 1) / 2 - add);
+        int q3 = (int) median(arr, (len - 1) / 2, len);
         int range = q3 - q1;
         System.out.printf("%.1f%n", range * 1.0);
     }

@@ -10,7 +10,25 @@ import java.util.List;
  */
 public class Util {
 
-    public static double calcMedian(int[] arr, int left, int right) {
+    public static double mean(double[] arr) {
+        double sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+        }
+
+        return (sum * 1.0) / arr.length;
+    }
+
+    public static double mean(int[] arr) {
+        long sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+        }
+
+        return (sum * 1.0) / arr.length;
+    }
+
+    public static double median(int[] arr, int left, int right) {
         int mid = (right + 1 - left) / 2 + left;
         return ((right + 1 - left) % 2 == 0)
                 ? (arr[mid - 1] + arr[mid]) / 2.0
@@ -19,7 +37,23 @@ public class Util {
 
     public static double calcMedianNotSorted(int[] arr, int from, int to) {
         Arrays.sort(arr);
-        return calcMedian(arr, from, to);
+        return median(arr, from, to);
+    }
+
+    public static double standardDeviation(int[] arr, double mean) {
+        double sumOfSquaredDistances = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sumOfSquaredDistances += Math.pow(arr[i] - mean, 2.0);
+        }
+        return Math.sqrt(sumOfSquaredDistances / arr.length);
+    }
+
+    public static double standardDeviation(double[] arr, double mean) {
+        double sumOfSquaredDistances = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sumOfSquaredDistances += Math.pow(arr[i] - mean, 2.0);
+        }
+        return Math.sqrt(sumOfSquaredDistances / arr.length);
     }
 
     public static int[] convert(List<Integer> integers) {
