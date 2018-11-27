@@ -29,7 +29,7 @@ public class Day7_PearsonCorrelationCoefficient {
         System.out.printf("%.3f%n", correlationCoeff);
     }
 
-    private static double pearsonsCorrelationCoeff(int n, double[] X, double[] Y) {
+    public static double pearsonsCorrelationCoeff(int n, double[] X, double[] Y) {
         double meanX = mean(X);
         double sigmaX = standardDeviation(X, meanX);
         double meanY = mean(Y);
