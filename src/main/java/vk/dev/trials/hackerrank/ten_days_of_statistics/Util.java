@@ -3,6 +3,8 @@ package vk.dev.trials.hackerrank.ten_days_of_statistics;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.util.Arrays.copyOf;
+
 /**
  * Util.
  *
@@ -95,7 +97,84 @@ public class Util {
             xi += dx;
         }
         double result = (2 / Math.sqrt(Math.PI)) * integral;
-//        System.out.printf("erf for z=%.3f, x=%.3f : --> %.3f%n", z, x, result);
         return sign * result;
     }
+
+    public static String matrixToString(double[][] x, int decimals) {
+        if (x == null || x.length == 0) {
+            return "Empty matrix";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < x.length; i++) {
+            for (int j = 0; j < x[0].length; j++) {
+                sb.append(String.format("%." + decimals + "f ", x[i][j]));
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    public static double[][] transpose(double[][] x) {
+        if (x == null || x.length == 0) {
+            return x;
+        }
+
+        int xHeight = x.length;
+        int xWidth = x[0].length;
+
+        double[][] res = new double[xWidth][xHeight];
+        for (int i = 0; i < xHeight; i++) {
+            for (int j = 0; j < xWidth; j++) {
+                res[j][i] = x[i][j];
+            }
+        }
+        return res;
+    }
+
+    public static double[][] multiply(double[][] x, double[][] y) {
+        if (x == null || y == null) {
+            return null;
+        }
+        if (x.length == 0 || y.length == 0) {
+            return new double[0][0];
+        }
+        if (x[0].length != y.length) {
+            throw new IllegalArgumentException("Matrices with incompatible dimensions. Expected AxN & NxB");
+        }
+        int n = x[0].length;
+        double[][] res = new double[x.length][y[0].length];
+        for (int i = 0; i < x.length; i++) {
+            for (int j = 0; j < y[0].length; j++) {
+                for (int k = 0; k < n; k++) {
+                    res[i][j] += x[i][k] * y[k][j];
+                }
+            }
+        }
+        return res;
+    }
+
+    /** found somewhere on the internet */
+    public static double[][] inverse(double[][] X) {
+        X = clone(X);
+        for (int n = X.length, i = 0; i < n; i++) {
+            double pivot = X[i][i];
+            for (int j = 0; j < n; j++)
+                X[j][i] /= -pivot;
+            for (int j = 0; j < n; j++)
+                for (int k = 0; k < n; k++)
+                    if (i != j && i != k)
+                        X[j][k] += X[j][i] * X[i][k];
+            for (int j = 0; j < n; j++)
+                X[i][j] /= pivot;
+            X[i][i] = 1 / pivot;
+        }
+        return X;
+    }
+
+    static double[][] clone(double[][] X) {
+        return Arrays.stream(X)
+                .map(doubles -> copyOf(doubles, doubles.length))
+                .toArray(double[][]::new);
+    }
+
 }
