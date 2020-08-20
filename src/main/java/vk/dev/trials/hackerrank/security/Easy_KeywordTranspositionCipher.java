@@ -1,12 +1,6 @@
 package vk.dev.trials.hackerrank.security;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Easy_KeywordTranspositionCipher.
@@ -37,14 +31,64 @@ public class Easy_KeywordTranspositionCipher {
         List<String> cryptoAlphabet = new ArrayList<>(ABC);
         cryptoAlphabet.removeAll(set);
         cryptoAlphabet.addAll(0, set);
-        // TODO: re-arrange alphabet according to natural order of the keyword letters
-        // TODO: transpose matrix
 
-        // TODO: decrypt using the crypto alphabet
-        String decrypted = "";
+        // re-arrange alphabet according to natural order of the keyword letters
+        String[] sorted = new TreeSet<>(set).toArray(new String[set.size()]);
+        int i = 0;
+        int[] positions = new int[set.size()];
+        for (String s : set) {
+            for (int j = 0; j < sorted.length; j++) {
+                if (s.equalsIgnoreCase(sorted[j])) {
+                    positions[i++] = j;
+                    break;
+                }
+            }
+        }
 
         System.out.println("set=" + set.toString());
         System.out.println("cryptoAlphabet=" + cryptoAlphabet.toString());
+        System.out.println("positions=" + Arrays.toString(positions));
+
+        int rows = cryptoAlphabet.size() / cols;
+        if (cryptoAlphabet.size() % cols > 0) {
+            rows++;
+        }
+        String[][] matrix = new String[rows][cols];
+        int k = 0;
+        for (int r = 0; r < cryptoAlphabet.size(); r = ++k * cols) {
+            for (int c = 0; c < cols && r + c < cryptoAlphabet.size(); c++) {
+                String letter = cryptoAlphabet.get(r + c);
+                int pos = positions[c];
+                matrix[k][pos] = letter;
+            }
+            System.out.println(Arrays.toString(matrix[k]));
+        }
+
+        // transpose matrix
+        List<String> cryptoAlphabetComplete = new ArrayList<>(cryptoAlphabet.size());
+        for (int c = 0; c < matrix[0].length; c++) {
+            for (int r = 0; r < matrix.length; r++) {
+                String s = matrix[r][c];
+                if (s == null || "".equalsIgnoreCase(s.trim())) {
+                    continue;
+                }
+                cryptoAlphabetComplete.add(s);
+            }
+        }
+        System.out.println("cryptoAlphabetComplete=" + cryptoAlphabetComplete);
+
+        // map crypto to normal alphabet
+        Map<String, String> map = new HashMap<>();
+        for (int j = 0; j < ABC.size(); j++) {
+            map.put(cryptoAlphabetComplete.get(j), ABC.get(j));
+        }
+        map.put(" ", " ");
+
+        // decrypt using the crypto alphabet
+        String[] encryptedLetters = encrypted.split("");
+        String decrypted = Arrays.stream(encryptedLetters)
+                .map(map::get)
+                .reduce("", String::concat);
 
         return decrypted;
     }

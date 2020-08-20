@@ -131,6 +131,24 @@ public class Util {
         return res;
     }
 
+    public static int[][] transpose(int[][] x) {
+        if (x == null || x.length == 0) {
+            return x;
+        }
+
+        int xHeight = x.length;
+        int xWidth = x[0].length;
+
+        int[][] res = new int[xWidth][xHeight];
+        for (int i = 0; i < xHeight; i++) {
+            for (int j = 0; j < xWidth; j++) {
+                res[j][i] = x[i][j];
+            }
+        }
+        return res;
+    }
+
+
     public static double[][] multiply(double[][] x, double[][] y) {
         if (x == null || y == null) {
             return null;
